@@ -34,7 +34,7 @@
 │                           │   │                              │
 │ 4. User enters:           │   │    - Dashboard               │
 │    - Username: testuser   │   │    - Collections             │
-│    - Password: testpass   │   │    - API access              │
+│    - Password: testpassword│  │    - API access              │
 │                           │   │                              │
 │ ✓ Validate credentials    │   └──────────────────────────────┘
 │ ✓ Issue OAuth2 token      │

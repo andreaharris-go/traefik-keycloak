@@ -1,3 +1,11 @@
+# ⚠️ SECURITY WARNING: This configuration is for LOCAL DEVELOPMENT ONLY
+# DO NOT use in production without:
+# 1. Changing all default passwords and secrets
+# 2. Using Docker secrets or a secrets management system
+# 3. Enabling HTTPS/TLS for all services
+# 4. Setting secure cookie flags
+# 5. Using proper domain names with valid SSL certificates
+
 services:
   traefik:
     image: traefik:v2.10
@@ -27,7 +35,7 @@ services:
     environment:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: keycloak_password
+      POSTGRES_PASSWORD: keycloak_password  # Change in production!
     volumes:
       - postgres-data:/var/lib/postgresql/data
     networks:
@@ -77,9 +85,9 @@ services:
       - PROVIDERS_GENERIC_OAUTH_TOKEN_URL=http://keycloak:8080/realms/qdrant/protocol/openid-connect/token
       - PROVIDERS_GENERIC_OAUTH_USER_URL=http://keycloak:8080/realms/qdrant/protocol/openid-connect/userinfo
       - PROVIDERS_GENERIC_OAUTH_CLIENT_ID=qdrant-client
-      - PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET=qdrant-client-secret
+      - PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET=qdrant-client-secret  # Change in production!
       - PROVIDERS_GENERIC_OAUTH_SCOPE=openid profile email
-      - SECRET=something-random-and-secure-change-me
+      - SECRET=something-random-and-secure-change-me  # IMPORTANT: Change this to a secure random value!
       - AUTH_HOST=auth.localhost
       - COOKIE_DOMAIN=localhost
       - INSECURE_COOKIE=true
