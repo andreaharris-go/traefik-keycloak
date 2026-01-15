@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   traefik:
     image: traefik:v2.10
@@ -74,14 +72,19 @@ services:
     image: thomseddon/traefik-forward-auth:2
     container_name: traefik-forward-auth
     environment:
-      - PROVIDERS_OIDC_ISSUER_URL=http://keycloak.localhost/realms/qdrant
-      - PROVIDERS_OIDC_CLIENT_ID=qdrant-client
-      - PROVIDERS_OIDC_CLIENT_SECRET=qdrant-client-secret
+      - DEFAULT_PROVIDER=generic-oauth
+      - PROVIDERS_GENERIC_OAUTH_AUTH_URL=http://keycloak.localhost/realms/qdrant/protocol/openid-connect/auth
+      - PROVIDERS_GENERIC_OAUTH_TOKEN_URL=http://keycloak:8080/realms/qdrant/protocol/openid-connect/token
+      - PROVIDERS_GENERIC_OAUTH_USER_URL=http://keycloak:8080/realms/qdrant/protocol/openid-connect/userinfo
+      - PROVIDERS_GENERIC_OAUTH_CLIENT_ID=qdrant-client
+      - PROVIDERS_GENERIC_OAUTH_CLIENT_SECRET=qdrant-client-secret
+      - PROVIDERS_GENERIC_OAUTH_SCOPE=openid profile email
       - SECRET=something-random-and-secure-change-me
       - AUTH_HOST=auth.localhost
       - COOKIE_DOMAIN=localhost
       - INSECURE_COOKIE=true
       - LOG_LEVEL=debug
+      - URL_PATH=/_oauth
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.auth.rule=Host(`auth.localhost`)"
